@@ -43,17 +43,34 @@
     }
     .signals {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       gap: 1rem;
       margin-bottom: 1rem;
+      max-width: 800px;
     }
     .signal {
       background: rgba(255,255,255,0.06);
-      padding: 0.8rem 1.4rem;
+      padding: 1rem 1.5rem;
       border-radius: 1rem;
-      min-width: 120px;
+      width: 100%;
       font-weight: 400;
       font-size: 1.2rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .signal-coin {
+      font-weight: 500;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .signal-reason {
+      opacity: 0.85;
+      flex: 1;
     }
     footer {
       font-size: 1rem;
@@ -101,7 +118,17 @@
         for (const [coin, sig] of Object.entries(data.signals)) {
           const div = document.createElement('div');
           div.className = 'signal';
-          div.innerText = `${coin} ${sig.emoji} ${sig.direction.toUpperCase()}`;
+          
+          const coinDiv = document.createElement('div');
+          coinDiv.className = 'signal-coin';
+          coinDiv.innerHTML = `${coin} ${sig.emoji} ${sig.direction}`;
+          
+          const reasonDiv = document.createElement('div');
+          reasonDiv.className = 'signal-reason';
+          reasonDiv.textContent = sig.reason;
+          
+          div.appendChild(coinDiv);
+          div.appendChild(reasonDiv);
           signalsDiv.appendChild(div);
         }
       } catch (err) {
