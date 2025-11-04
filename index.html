@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moonalyzer 🌕 — Wen moon according to the stars</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: transparent;
+      color: #f2f2ff;
+      font-family: "Cormorant Garamond", serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-family: "Cinzel Decorative", serif;
+      font-size: 3.5rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+    #prediction {
+      font-size: 2.2rem;
+      margin: 0.8rem 0;
+      font-weight: 500;
+      font-style: italic;
+    }
+    #astro {
+      font-size: 1.5rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0.8rem auto 1.5rem;
+      line-height: 1.6;
+    }
+    .signals {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .signal {
+      background: rgba(255,255,255,0.06);
+      padding: 0.8rem 1.4rem;
+      border-radius: 1rem;
+      min-width: 120px;
+      font-weight: 400;
+      font-size: 1.2rem;
+    }
+    footer {
+      font-size: 1rem;
+      opacity: 0.6;
+      position: absolute;
+      bottom: 1rem;
+    }
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      /* Use local image: Put your image in assets/ folder and update the path below */
+      background: url('./assets/background.svg') center center;
+      /* Or use external URL: */
+      /* background: url('https://raw.githubusercontent.com/progers/pathtracer/master/data/sky-small.jpg') center center; */
+      background-size: cover;
+      opacity: 1;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <h1>🌕 Moonalyzer</h1>
+  <div id="prediction">Loading cosmic data...</div>
+  <div id="astro"></div>
+  <div class="signals" id="signals"></div>
+  <footer>
+    <div id="quote"></div>
+    <div>Updated twice daily • <a href="https://eternax.ai" style="color:#aaa;">by EternaX Labs</a></div>
+  </footer>
+
+  <script>
+    async function loadForecast() {
+      try {
+        const res = await fetch('./data/latest.json?' + Date.now());
+        const data = await res.json();
+
+        document.getElementById('prediction').innerText = data.market_mood;
+        document.getElementById('astro').innerText = data.astro_justification;
+        document.getElementById('quote').innerText = data.quote || '';
+
+        const signalsDiv = document.getElementById('signals');
+        signalsDiv.innerHTML = '';
+        for (const [coin, sig] of Object.entries(data.signals)) {
+          const div = document.createElement('div');
+          div.className = 'signal';
+          div.innerText = `${coin} ${sig.emoji} ${sig.direction.toUpperCase()}`;
+          signalsDiv.appendChild(div);
+        }
+      } catch (err) {
+        document.getElementById('prediction').innerText = 'The stars are cloudy... try again soon.';
+        console.error(err);
+      }
+    }
+
+    loadForecast();
+  </script>
+</body>
+</html>

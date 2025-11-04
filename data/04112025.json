@@ -1,0 +1,23 @@
+{
+  "date": "2025-11-04",
+  "market_mood": "A volatile push and pull, much like a cosmic tug-of-war.",
+  "astro_justification": "With the Moon in fiery Aries squaring expansive Jupiter, emotions run high, while Mercury\u2019s conjunction with Mars ignites communication and trading activity.",
+  "signals": {
+    "BTC": {
+      "direction": "\u2191",
+      "emoji": "\ud83d\ude80",
+      "reason": "Mars trine Jupiter suggests a surge in bullish momentum."
+    },
+    "ETH": {
+      "direction": "\u2193",
+      "emoji": "\ud83d\udcc9",
+      "reason": "Venus square Jupiter creates uncertainty affecting investors' confidence."
+    },
+    "ALTS": {
+      "direction": "\u2191",
+      "emoji": "\ud83c\udf1f",
+      "reason": "The passionate Aries Moon may drive speculative interest in altcoins."
+    }
+  },
+  "quote": "In the cosmic dance of this day, stay agile, dear traders; the stars are alive!"
+}
