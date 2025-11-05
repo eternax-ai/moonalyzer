@@ -17,7 +17,7 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 today = datetime.utcnow()
-date_str = today.strftime("%d%m%Y")
+date_str = today.strftime("%d%m%Y%H")
 output_path = f"data/{date_str}.json"
 
 zodiac_signs = [
